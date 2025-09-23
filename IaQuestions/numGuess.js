@@ -25,6 +25,7 @@ class Guess{
             this.guess=prompt('Enter your guess \n')
         }
         console.log(`Correct`)
+        return 'Correct'
     }
 
 }

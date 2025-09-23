@@ -10,6 +10,7 @@ class DogAge{
         this.age=age
     }
     result(){
+        // validating dog age to ensure its positive
         if (this.age >0) console.log(`Your dog is ${this.age * 7} years old`);
         else console.log(`Age needs to be positive/greater than 0 \nif you mean ${Math.abs(this.age)},\nYour dog is ${Math.abs(this.age) * 7} years old `)
     }

@@ -15,6 +15,7 @@ class Paint{
         const total=this.width *this.height
         const num=Math.ceil(total/50)
         console.log(`${num} cans`)
+        return num;
     }
 }
 const paint=new Paint(12,12)

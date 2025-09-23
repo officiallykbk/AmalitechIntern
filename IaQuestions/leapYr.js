@@ -10,7 +10,7 @@ class LeapYear{
         this.year=year
     }
     checker(){
-          if (this.year%4==0){
+        if (this.year%4==0){
             if (this.year%100==0){
                 if (this.year %400==0){
                     console.log('Is leap year')

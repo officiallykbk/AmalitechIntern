@@ -14,6 +14,7 @@ class Grader{
         this.score=score
     }
       gradings() {
+        // ensure score is within range 0-100
         if (this.score <0 || this.score >100){
             console.log('Score needs to be from 0 to 100')
             return '';
