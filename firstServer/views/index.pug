@@ -1,0 +1,10 @@
+doctype html
+html 
+    head 
+        link(rel='stylesheet',href='/styles.css')
+        title= title
+    body.container
+        h1.main= h1
+        ul.inText
+            each user in users
+                li #{user.name} of age #{user.age}

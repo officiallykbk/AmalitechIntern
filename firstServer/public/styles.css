@@ -1,0 +1,16 @@
+.container{
+    border: 5px solid black;
+    padding: 20px;
+    margin: 20px;
+    text-align: center;
+    font-size: 20px;
+}
+.main{
+    font-size: 40px;
+    color: blue;
+}
+
+.inText{
+    font-weight: 300;
+ 
+}
