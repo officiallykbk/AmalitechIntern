@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS Tasks(
     id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
     description TEXT,
-    due_date DATE,
+    due_date DATE CHECK (due_date >= CURRENT_DATE),
     priority priorities,
     completion_status BOOLEAN DEFAULT false,
 
