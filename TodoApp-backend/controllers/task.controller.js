@@ -4,7 +4,12 @@ const { allTasks, specificTask, addTask, removeTask, manipulateTask, changeCompl
 
 const getTasks = async(req,res) => {
     try {
-        const result = await allTasks()
+        space=['ASC','DESC']
+        let {title,priority,completion_status,due_date,limit=10,order='ASC'}  = req.query
+        space.includes(order) ? order : order='ASC'
+
+        const result = await allTasks(title,priority,completion_status,due_date,limit=10,order='ASC')
+        if (result==null) return res.status(204).send('No task found')
         res.status(200).send(result.rows[0])
     } catch (error) {
         console.error(error)

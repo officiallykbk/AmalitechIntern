@@ -16,7 +16,7 @@ tags:
   - name: task
     description: Everything about tasks
 paths:
-  /task/:
+  /task:
     get:
       tags:
         - task

@@ -1,9 +1,33 @@
 const postgres = require('../config/db')
 
-const allTasks = async () =>{
+const allTasks = async (title,priority,completion_status,due_date,limit,order) =>{
     try {
-        const query = 'SELECT * FROM Tasks'
-        const result = await postgres.query(query)
+
+        let query = 'SELECT * FROM Tasks WHERE 1=1'
+        let values=[]
+        let indx=1
+
+        if(title){
+            query += ` AND title ILIKE $${indx++}`
+            values.push(`${title}%`)
+        }
+        
+        if (priority){
+            query += ` AND priority=$${indx++}`
+            values.push(priority)
+        }
+        if (completion_status){
+            query += ` AND completion_status=$${indx++}`
+            values.push(completion_status)
+        }
+        if (due_date){
+            query += ` AND due_date=$${indx++}`
+            values.push(due_date)
+        }
+
+        query +=` ORDER BY id ${order} LIMIT ${limit}`
+        // console.log(`querzz ${query}\n ${values} \n title ${title}\n priority ${priority}\n complet ${completion_status}\n due ${due_date}\n limi-ord ${limit}-${order}`)
+        const result = await postgres.query(query,values)
         return result
     } catch (error) {
         console.error(`Retrieval error ${error.message}`);
@@ -62,16 +86,6 @@ const removeTask = async (id) =>{
         console.error(`Deletion error: ${error.message}`)
     }
 }
-
-// const taskFilter = async (category,searchTerm) =>{
-//      const criteria =[]
-//     // ADD ASC/DESC
-//     const keywordQuery = `SELECT * FROM Tasks WHERE ${category} LIKE "%$1%"` //title or description
-//     const specificQuery = `SELECT * FROM Tasks ORDER BY ${category}` //priority, due_date, completion
-//     // const specificQuery = `SELECT * FROM Tasks WHERE ${category}}=$1` //priority, due_date, completion
-//     if (criteria.includes(searchTerm));
-// }
-
 
 
 
