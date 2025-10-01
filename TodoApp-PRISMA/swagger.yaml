@@ -8,7 +8,7 @@ info:
 
     Some useful links:
     - [The ToDo repository](https://github.com/officiallykbk/AmalitechIntern.git)
-  version: v0.1
+  version: v0.2
     
 servers:
   - url: http://localhost:3000
@@ -18,9 +18,48 @@ tags:
 paths:
   /task:
     get:
-      tags:
-        - task
+      tags: [task]
       summary: Get All existing todos
+      parameters:
+        - name: title
+          in: query
+          schema:
+            type: string
+          description: Filter tasks by title keyword
+          example: Read
+        - name: priority
+          in: query
+          schema:
+            type: string
+            enum: [low, medium, high]
+          description: Filter tasks by priority
+          example: high
+        - name: completion_status
+          in: query
+          schema:
+            type: boolean
+          description: Filter tasks by completion status
+          example: false
+        - name: due_date
+          in: query
+          schema:
+            type: string
+            format: date
+          description: Filter tasks by due date
+          example: "2025-12-12"
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Limit the number of tasks returned
+          example: 10
+        - name: order
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+          description: Order tasks by due date ascending or descending
+          example: asc
       responses:
         '200' :
           description: Successful operation
@@ -130,6 +169,45 @@ paths:
           schema:
             type: integer
             format: int64
+        - name: title
+          in: query
+          schema:
+            type: string
+          description: Filter tasks by title keyword
+          example: Read
+        - name: priority
+          in: query
+          schema:
+            type: string
+            enum: [low, medium, high]
+          description: Filter tasks by priority
+          example: high
+        - name: completion_status
+          in: query
+          schema:
+            type: boolean
+          description: Filter tasks by completion status
+          example: false
+        - name: due_date
+          in: query
+          schema:
+            type: string
+            format: date
+          description: Filter tasks by due date
+          example: "2025-12-12"
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Limit the number of tasks returned
+          example: 10
+        - name: order
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+          description: Order tasks by due date ascending or descending
+          example: asc
       responses:
         '200':
           description: Successful operation
