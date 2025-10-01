@@ -1,13 +1,16 @@
 
 const prisma = require('../config/db')
 
-const allTasks =  async (title,priority,completion_status,due_date,limit,order) =>{
+const allTasks =  async (title,description,priority,completion_status,due_date,limit,order) =>{
     try {
 
             const filters = {};
 
              if (title) {
                filters.title = { startsWith: title }; 
+             }
+             if (description) {
+               filters.description = { contains: description }; 
              }
              if (priority) {
                filters.priority = priority;
@@ -20,7 +23,7 @@ const allTasks =  async (title,priority,completion_status,due_date,limit,order) 
              }
 
         const result = await prisma.tasks.findMany({ 
-            where: {OR: Object.keys(filters).length >0 ? filters : undefined ,},
+            where: {OR:[ Object.keys(filters).length >0 ? filters : undefined ]},
             orderBy: due_date && order ? {due_date:order} : undefined,
             take: limit || undefined
         })

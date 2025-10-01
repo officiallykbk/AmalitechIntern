@@ -5,16 +5,16 @@ const { allTasks, specificTask, addTask, removeTask, manipulateTask, changeCompl
 const getTasks = async(req,res) => {
     try {
         space=['ASC','DESC']
-        let {title,priority,completion_status,due_date,limit=10,order='ASC'}  = req.query
-          completion_status =
-        completion_status === "true"
-      ? true
-      : completion_status === "false"
-      ? false
-      : undefined; 
+        let {title,description,priority,completion_status,due_date,limit=10,order='ASC'}  = req.query
+        completion_status =
+                completion_status === "true"
+              ? true
+              : completion_status === "false"
+              ? false
+              : undefined; 
         space.includes(order) ? order : order='ASC'
 
-        const result = await allTasks(title,priority,completion_status,due_date,limit=10,order='ASC')
+        const result = await allTasks(title,description,priority,completion_status,due_date,limit=10,order='ASC')
         if (result==null) return res.status(204).send('No task found')
         res.status(200).send(result)
     } catch (error) {
