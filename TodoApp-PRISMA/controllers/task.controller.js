@@ -6,6 +6,12 @@ const getTasks = async(req,res) => {
     try {
         space=['ASC','DESC']
         let {title,priority,completion_status,due_date,limit=10,order='ASC'}  = req.query
+          completion_status =
+        completion_status === "true"
+      ? true
+      : completion_status === "false"
+      ? false
+      : undefined; 
         space.includes(order) ? order : order='ASC'
 
         const result = await allTasks(title,priority,completion_status,due_date,limit=10,order='ASC')
@@ -46,6 +52,12 @@ const createTask  = async (req,res) =>{
 const editTask  = async (req,res) =>{
     try {
         const {title,description,due_date,priority,completion_status} = req.body
+         completion_status =
+    completion_status === "true"
+      ? true
+      : completion_status === "false"
+      ? false
+      : undefined; 
         const formated_id = parseInt(req.params.id)
          let formattedDate = null;
         if (due_date) {

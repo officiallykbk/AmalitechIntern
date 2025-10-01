@@ -7,8 +7,8 @@ const taskSchema = Joi.object({
   due_date: Joi.date().min("now"),
   priority: Joi.string().valid("low", "medium", "high"),
   completion_status: Joi.boolean()
-//   .truthy('true',1)
-//   .falsy('false',0)
+  .truthy('true',1)
+  .falsy('false',0)
   .default(false)
 })
 

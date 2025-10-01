@@ -20,9 +20,9 @@ const allTasks =  async (title,priority,completion_status,due_date,limit,order) 
              }
 
         const result = await prisma.tasks.findMany({ 
-            // where: {OR:[ Object.keys.length >0 ? filters : undefined ],},
-            // orderBy: due_date && order ? {due_date:order} : undefined,
-            // take: limit || undefined
+            where: {OR: Object.keys(filters).length >0 ? filters : undefined ,},
+            orderBy: due_date && order ? {due_date:order} : undefined,
+            take: limit || undefined
         })
         return result
    } catch (error) {
