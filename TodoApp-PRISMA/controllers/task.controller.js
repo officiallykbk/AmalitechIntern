@@ -1,8 +1,7 @@
 const { allTasks, specificTask, addTask, removeTask, manipulateTask, changeCompletion } = require("../services/tasks.service")
 
-//todo: send status for error in fetch
 
-const getTasks = async(req,res) => {
+const getTasks = async(req,res,next) => {
     try {
         space=['ASC','DESC']
         let {title,description,priority,completion_status,due_date,limit=10,order='ASC'}  = req.query
@@ -14,15 +13,16 @@ const getTasks = async(req,res) => {
               : undefined; 
         space.includes(order) ? order : order='ASC'
 
-        const result = await allTasks(title,description,priority,completion_status,due_date,limit=10,order='ASC')
+        const result = await allTasks({title,description,priority,completion_status,due_date,limit:10,order:'ASC'})
         if (result==null) return res.status(204).send('No task found')
         res.status(200).send(result)
     } catch (error) {
         console.error(error)
+        next(error)
     }
 }
 
-const getTaskById = async (req,res) =>{
+const getTaskById = async (req,res,next) =>{
     try {
         const id = parseInt(req.params.id)
         const result = await specificTask(id)
@@ -30,10 +30,11 @@ const getTaskById = async (req,res) =>{
         res.status(200).send(result)
     } catch (error) {
         console.error(error)
+        next(error)
     }
 }
 
-const createTask  = async (req,res) =>{
+const createTask  = async (req,res,next) =>{
     try {
      
         const { title, description, due_date, priority } = req.body;
@@ -46,10 +47,11 @@ const createTask  = async (req,res) =>{
         res.status(201).send(result)
     } catch (error) {
         console.error(error)
+        next(error)
     }
 }
 
-const editTask  = async (req,res) =>{
+const editTask  = async (req,res,next) =>{
     try {
         const {title,description,due_date,priority,completion_status} = req.body
          completion_status =
@@ -63,43 +65,40 @@ const editTask  = async (req,res) =>{
         if (due_date) {
             formattedDate = new Date(due_date).toISOString();
         }
-        const result =await manipulateTask(formated_id,title,description,formattedDate,priority,completion_status)
-        if (result.rowCount==0) return res.status(404).send('Task does not exist')
-        res.send(result)
+        const result =await manipulateTask({formated_id,title,description,formattedDate,priority,completion_status})
+        if (result==null) return res.status(404).send('Task does not exist')
+        res.status(200).send(result)
     } catch (error) {
         console.error(error)
+        next(error)
     }
 }
-const editTaskCompletion = async (req,res) =>{
+const editTaskCompletion = async (req,res,next) =>{
     try {
         const {completion_status} = req.body
         const formated_id = parseInt(req.params.id)
-        const result = await changeCompletion(formated_id,completion_status)
-        if (result.rowCount==0) return res.status(404).send('Task does not exist')
+        const result = await changeCompletion({formated_id,completion_status})
+        if (result==null) return res.status(404).send('Task does not exist')
         res.send(result)
     } catch (error) {
         console.error(error)
+        next(error)
     }
 }
 
-const deleteTask  = async (req,res) =>{
+const deleteTask  = async (req,res,next) =>{
     try {
         const id = parseInt(req.params.id)
         const result = await removeTask(id)
-        if (result.rowCount==0) return res.status(404).send('Task does not exist')
+        if (result==null) return res.status(404).send('Task does not exist')
         res.status(204).send(result)
         
     } catch (error) {
         console.error(error)
+        next(error)
     }
 }
 
-// function formatter(req){
-//     let new_format=[]
-//     for (i in req.body){
-//         new_format.push(parseInt(req.body[i]))
-//     }
-// }
 
 
 

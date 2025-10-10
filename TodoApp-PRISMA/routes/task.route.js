@@ -14,7 +14,8 @@ router.route('/:id')
 router.get('/',getTasks)
 
 router.post('/',ValidateTask,createTask)
-router.put('/completion/:id',editTaskCompletion)
+// TODO: check the effect of this change
+router.patch('/:id/completion',editTaskCompletion)
 
 
 module.exports = router

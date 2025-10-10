@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "test": "jest --watchAll --coverage"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +21,8 @@
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "^30.2.0",
     "prisma": "^6.16.3"
   }
 }

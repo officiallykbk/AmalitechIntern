@@ -289,6 +289,31 @@ paths:
           schema:
             type: integer
             format: int64
+      # requestBody:
+      #   description: change tasks Status
+      #   content:
+      #     application/json:
+      #       schema:
+      #         - name: status
+      #           description: new status of taskId
+      #           type: object
+      #           properties:
+      #             completion_status:
+      #               type: boolean
+      #               description: is the Todo complete?
+      #               example: false
+
+      #     schema:
+      #       type: boolean
+      #       example: true
+      #     application/xml:
+      #       schema:
+      #         $ref: '#/components/schemas/task'
+      #     application/x-www-form-urlencoded:
+      #       schema:
+      #         $ref: '#/components/schemas/task'
+      #   required: true
+
       responses:
         '200':
           description: successful operation
