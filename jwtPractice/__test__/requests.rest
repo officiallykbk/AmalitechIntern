@@ -1,0 +1,40 @@
+GET http://localhost:3000/
+
+###
+POST http://localhost:3000/login 
+Content-Type: application/json
+
+{
+    "id": 1,
+    "name": "Kwabena Boateng Konadu",
+    "password": "12345678"
+
+}
+
+###
+POST http://localhost:3000/signUp
+Content-Type: application/json
+
+{
+    "name": "Kwabena Boateng Konadu",
+    "age":21,
+    "password": "12345678"
+
+}
+
+###
+@id=1
+POST http://localhost:3000/refresh/{{id}}
+Content-Type: application/json
+
+
+###
+@id=1
+DELETE http://localhost:3000/logout/{{id}}
+Content-Type: application/json
+
+###
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ikt3YWJlbmEgQm9hdGVuZyBLb25hZHUiLCJwYXNzd29yZCI6IiQyYiQxMCQ0N3ZlTDdQYU9qLkwxa2RyWThzcEZlSUJxdGk3RHUxamsueUwwNmpnd2s4TDEzYUgycDc1VyIsImlhdCI6MTc1OTgzNDcxOCwiZXhwIjoxNzU5ODM0Nzc4fQ.W6ufbXn8vfTt3fkGwNRkG8YUPir6iK24LKDmdKsNrfY
+POST http://localhost:3000/dashboard
+Content-Type: application/json
+Authorization: Bearer {{token}}
