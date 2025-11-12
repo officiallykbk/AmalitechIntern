@@ -1,0 +1,24 @@
+
+services:
+  server:
+    build: dockerPractice
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://dockerUser:2016@db:5432/dockerApp
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+  db:
+    image: postgres:18.0-alpine3.22
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: dockerUser
+      POSTGRES_PASSWORD: 2016
+      POSTGRES_DB: dockerApp
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
