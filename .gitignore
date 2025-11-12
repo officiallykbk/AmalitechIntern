@@ -16,3 +16,5 @@ TodoApp-PRISMA/node_modules/
 TodoApp-PRISMA/.env
 jwtPractice/node_modules/
 jwtPractice/.env
+
+fastapi-todoapp/venv/
