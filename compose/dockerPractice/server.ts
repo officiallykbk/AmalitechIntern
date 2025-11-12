@@ -15,6 +15,15 @@ app.get('/', async (req: Request, res: Response) => {
     console.log('Welcome to the home On Server 1');
 
 });
+app.post('/', async (req: Request, res: Response) => {
+    const user = await prisma.user.create({
+        data: {
+            name: req.body.name,
+            email: req.body.email,
+        },
+    })
+    res.send(`User created: ${user}`);
+})
 
 app.listen(port, () => {
     console.log(`Server started on http://localhost:${port}`);
